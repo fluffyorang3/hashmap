@@ -38,5 +38,18 @@ function hashMap() {
         }
       }
     },
+    get: function (key) {
+      let hashCode = this.hash(key);
+      let index = hashCode % arrayLength;
+
+      let current = array[index];
+      while (current !== null) {
+        if (current.key === key) {
+          return current.value;
+        }
+        current = current.next;
+      }
+      return undefined;
+    },
   };
 }
