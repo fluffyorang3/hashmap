@@ -3,6 +3,7 @@ function hashMap() {
   let array = new Array(array_length).fill(null);
   let load = 0;
   let loadFactor = 0.75;
+
   return {
     hash: function (key) {
       let hashCode = 0;
@@ -20,6 +21,22 @@ function hashMap() {
 
       if (array[index] === null) {
         array[index] = { key, value, next: null };
+        load++;
+        console.log(load);
+        if (load > loadFactor * array_length) {
+          array_length = array_length * 2;
+          let tempArray = array;
+          array = new Array(array_length).fill(null);
+          load = 0;
+
+          for (let i = 0; i < tempArray.length; i++) {
+            let current = tempArray[i];
+            while (current) {
+              this.set(current.key, current.value);
+              current = current.next;
+            }
+          }
+        }
       } else {
         let current = array[index];
         while (current) {
@@ -152,5 +169,37 @@ function hashMap() {
       }
       return keyValueArray;
     },
+    setLoadFactor: function (n) {
+      loadFactor = n;
+      return loadFactor;
+    },
+    printMap: function () {
+      for (let i = 0; i < array_length; i++) {
+        let current = array[i];
+        console.log(`Index ${i}:`);
+        while (current) {
+          console.log(`  Key: ${current.key}, Value: ${current.value}`);
+          current = current.next;
+        }
+      }
+    },
   };
 }
+
+const test = hashMap();
+
+test.set("apple", "red");
+test.set("banana", "yellow");
+test.set("carrot", "orange");
+test.set("dog", "brown");
+test.set("elephant", "gray");
+test.set("frog", "green");
+test.set("grape", "purple");
+test.set("hat", "black");
+test.set("ice cream", "white");
+test.set("jacket", "blue");
+test.set("kite", "pink");
+test.set("lion", "golden");
+test.set("moon", "silver");
+
+console.log(test.printMap());
