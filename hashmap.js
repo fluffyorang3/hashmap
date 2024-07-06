@@ -99,5 +99,39 @@ function hashMap() {
     clear: function () {
       array = new Array(array_length).fill(null);
     },
+    keys: function () {
+      let keyArray = [];
+
+      for (let i = 0; i < array_length; i++) {
+        let current = array[i];
+        if (current === null) {
+          continue;
+        }
+        while (current) {
+          if (current.key) {
+            keyArray.push(current.key);
+          }
+          current = current.next;
+        }
+      }
+      return keyArray;
+    },
+    values: function () {
+      let valueArray = [];
+
+      for (let i = 0; i < array_length; i++) {
+        let current = array[i];
+        if (current === null) {
+          continue;
+        }
+        while (current) {
+          if (current.value) {
+            valueArray.push(current.value);
+          }
+          current = current.next;
+        }
+      }
+      return valueArray;
+    },
   };
 }
