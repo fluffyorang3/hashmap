@@ -96,5 +96,8 @@ function hashMap() {
       }
       return length;
     },
+    clear: function () {
+      array = new Array(array_length).fill(null);
+    },
   };
 }
