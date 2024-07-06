@@ -1,6 +1,8 @@
 function hashMap() {
   let array_length = 16;
   let array = new Array(array_length).fill(null);
+  let load = 0;
+  let loadFactor = 0.75;
   return {
     hash: function (key) {
       let hashCode = 0;
@@ -132,6 +134,23 @@ function hashMap() {
         }
       }
       return valueArray;
+    },
+    entries: function () {
+      let keyValueArray = [];
+
+      for (let i = 0; i < array_length; i++) {
+        let current = array[i];
+        if (current === null) {
+          continue;
+        }
+        while (current) {
+          let arrayitem = [current.key, current.value];
+          keyValueArray.push(arrayitem);
+
+          current = current.next;
+        }
+      }
+      return keyValueArray;
     },
   };
 }
